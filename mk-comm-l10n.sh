@@ -10,7 +10,7 @@ FILEMAP="/tmp/filemap.txt"
 FILEMAP_IN="/tmp/filemap.txt.in"
 SPLICEMAP="/tmp/splicemap.txt"
 
-L10N_COMM="l10n-comm"
+L10N_COMM="comm-l10n"
 
 get_first() {
   hg -R "$LC/$1" log -r 'first(date(">2021-05-31"))' --template '{node}\n'
@@ -54,7 +54,7 @@ for L in $LANGS; do
 
   _tip=$(get_tip)
   _lang=$(hg -R $L10N_COMM log -r tip --template "{sub('/.*$', '', min(file_adds))}")
-  _newmsg="l10n-comm import from l10n-central: $_lang"
+  _newmsg="comm-l10n import from l10n-central: $_lang"
   hg -R $L10N_COMM metaedit -r $_tip -U -m "$_newmsg"
   
   _tip=$(get_tip)

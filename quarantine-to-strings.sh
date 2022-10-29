@@ -3,7 +3,7 @@
 set -eE
 
 QUARANTINE_PATH="comm-strings-quarantine"
-STRINGS_PATH="l10n-comm"
+STRINGS_PATH="comm-l10n"
 
 QUARANTINE_URL="https://hg.mozilla.org/projects/comm-strings-quarantine"
 STRINGS_URL="https://hg.mozilla.org/projects/comm-l10n"

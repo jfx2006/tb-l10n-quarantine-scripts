@@ -2,7 +2,7 @@
 
 set -eE
 
-STRINGS_PATH="l10n-comm"
+STRINGS_PATH="comm-l10n"
 
 export LC="l10n-central"
 LANGS=$(cat all-locales)
