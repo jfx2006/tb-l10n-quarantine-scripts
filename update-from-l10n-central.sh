@@ -1,4 +1,4 @@
-#!/bin/bash -xv
+#!/bin/bash
 
 set -eE
 
@@ -8,8 +8,16 @@ export LC="l10n-central"
 LANGS=$(cat all-locales)
 
 FILEMAP="/tmp/filemap.txt"
+FILEMAP_IN="/tmp/filemap.txt.in"
 SPLICEMAP="/tmp/splicemap.txt"
 
+cat - > $FILEMAP_IN << _EOF_
+include calendar
+include chat
+include mail
+include suite
+rename . @LANG@
+_EOF_
 
 get_next() {
   _rv=$(hg --cwd "$LC/$1" log \
@@ -52,7 +60,7 @@ update_lang() {
   fi
   _tip_of_strings=$(get_tip)
   echo "$_first_to_convert $_tip_of_strings" > $SPLICEMAP
-  sed -e "s/@LANG@/$L/" filemap.txt.in > $FILEMAP
+  sed -e "s/@LANG@/$L/" $FILEMAP_IN > $FILEMAP
 
   hg convert \
     --config convert.hg.saverev=True \
