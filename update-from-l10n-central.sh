@@ -73,6 +73,9 @@ update_lang() {
   hg -R "${STRINGS_PATH}" up tip
 }
 
+hg -R "${STRINGS_PATH}" pull
+hg -R "${STRINGS_PATH}" up
+
 for _L in $LANGS; do
  update_lang "$_L"
 done 

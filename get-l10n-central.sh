@@ -2,8 +2,14 @@
 
 set -e
 
-curl --retry 3 --output all-locales \
-  https://hg.mozilla.org/comm-central/raw-file/tip/mail/locales/all-locales
+# all-locales file comes from this plus additional locales below
+# curl --retry 3 --output all-locales \
+#  https://hg.mozilla.org/comm-central/raw-file/tip/mail/locales/all-locales
+#for _l in bs hye ia km xcl; do
+#  echo $_l >> all-locales
+#done
+#sort -o all-locales.tmp all-locales
+#mv -f all-locales.tmp all-locales
 
 LANGS=$(cat all-locales)
 
@@ -12,10 +18,13 @@ LANGS=$(cat all-locales)
 export L10N="l10n-central"
 export L10N_CENTRAL="https://hg.mozilla.org/l10n-central"
 
-cd "$L10N"
-
+if [[ ! -d "$L10N" ]]; then
+  echo "$L10N directory not present. mkdir one first."
+  exit 67
+fi
 
 update_lang() {
+  pwd
   L="$1"
   echo "Updating lang $L"
   if [[ ! -d "$L10N/$L" ]]; then
@@ -37,5 +46,5 @@ test_lang() {
 }
 export -f test_lang
 
-parallel -j 8 --linebuffer update_lang ::: $LANGS
+parallel -j 8 --color --linebuffer update_lang ::: $LANGS
 
