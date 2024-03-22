@@ -1,0 +1,16 @@
+basepath = "."
+
+[env]
+    l = "{l10n_base}/{locale}/"
+
+[[paths]]
+    reference = "services/sync/**"
+    l10n = "{l}services/sync/**"
+
+[[paths]]
+    reference = "devtools/startup/**"
+    l10n = "{l}devtools/startup/**"
+
+[[paths]]
+    reference = "devtools/shim/**"
+    l10n = "{l}devtools/shim/**"
